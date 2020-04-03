@@ -32,8 +32,11 @@ const App = () => {
     console.log('delete', slug, 'post');
     axios
       .delete(`${process.env.REACT_APP_API}/post/${slug}`)
-      .then()
-      .catch()
+      .then(response => {
+        alert(response.data.message);
+        fetchPosts();
+      })
+      .catch(error => alert(`${error}`));
   }
 
   return (
