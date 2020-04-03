@@ -41,7 +41,7 @@ const UpdatePost = props => {
                 setState({ ...state, title, content, slug, user });
 
                 //success
-                console.log(`Post titled ${title} was updated`);
+                alert(`Post titled "${title}" was updated`);
                 
             })
             .catch(error => {
