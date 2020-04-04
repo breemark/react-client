@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* React Quill Text Editor */
+.ql-snow .ql-editor {
+  background: white;
+  color: black;
+  min-height: 18em;
+}
+
+.ql-toolbar {
+  background: #C0C0C0;
+}
+
+.ql-snow .ql-editor > h1 {
+  color: black;
+}
+
+.ql-snow .ql-editor > h2 {
+  color: black;
+}
+
+.ql-snow .ql-editor > h3 {
+  color: black;
+}

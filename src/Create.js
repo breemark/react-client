@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
 import axios from 'axios';
+import ReactQuill from 'react-quill';
+import {getUser} from './helpers';
+import 'react-quill/dist/quill.snow.css';
 
 const Create = () => {
 
     // state
     const [state, setState] = useState({
         title: '',
-        content: '',
-        user: ''
+        user: getUser()
     });
 
+    const [content, setContent] = useState('');
+
+    // Rich text editor handle change
+    const handleContent = event => {
+        console.log(event);
+        setContent(event);
+    }
+
     // destructure values from state
-    const {title, content, user} = state;
+    const {title, user} = state;
 
     // onChange event handler
     const handleChange = name => event => {
@@ -29,10 +39,11 @@ const Create = () => {
                 console.log(response);
 
                 //Now empty the space
-                setState({ ...state, title: '', content: '', user: ''});
+                setState({ ...state, title: ''});
+                setContent('');
 
                 //Success message
-                console.log(`Post created ${response.data.title}`)
+                alert(`Post created ${response.data.title}`)
             })
             .catch(error => {
                 console.error(error.response);
@@ -53,11 +64,22 @@ const Create = () => {
                     </div>
                     <div className='form-group'>
                         <label className='text-muted'>Content</label>
-                        <textarea onChange={handleChange('content')} value={content} type='text' className='form-control' placeholder='Content here' rows='5' required />
+                        <ReactQuill 
+                            onChange = { handleContent } 
+                            value = { content } 
+                            theme = 'snow'
+                            placeholder = 'Content here' 
+                            required />
                     </div>
                     <div className='form-group'>
                         <label className='text-muted'>User</label>
-                        <input onChange={handleChange('user')} value={user} type='text' className='form-control' placeholder='Your name' required />
+                        <input 
+                            onChange={handleChange('user')} 
+                            value={ user || 'Anonymous 🤔' } 
+                            type='text' 
+                            className='form-control' 
+                            placeholder='Your name' 
+                            required />
                     </div>
                     <div>
                         <button className='btn btn-primary'>Create</button>
