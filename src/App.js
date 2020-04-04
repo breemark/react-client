@@ -3,6 +3,7 @@ import Nav from './Nav';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import renderHTML from 'react-render-html';
+import {getUser} from './helpers';
 
 const App = () => {
 
@@ -64,6 +65,7 @@ const App = () => {
                       <span className='badge'>{new Date(post.createdAt).toLocaleString()}</span>
                     </p>
                   </div>
+                  { getUser() && (
                   <div className='col-md-3'>
                     <Link 
                       to={`/post/update/${post.slug}`} 
@@ -77,6 +79,7 @@ const App = () => {
                         Delete
                     </button>
                   </div>
+                  )}
                 </div>
 
               </div>

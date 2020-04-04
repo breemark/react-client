@@ -19,7 +19,6 @@ const Login = props => {
 
     // onchange event handler
     const handleChange = name => event => {
-        // console.log('name', name, 'event', event.target.value);
         setState({ ...state, [name]: event.target.value });
     };
 
@@ -31,7 +30,7 @@ const Login = props => {
             .then(response => {
                 console.log(response);
                 // response will contain token and name
-                authenticate(response, () => props.history.push('/create'));
+                authenticate(response, () => props.history.push('/'));
                 // redirect to create page
             })
             .catch(error => {
