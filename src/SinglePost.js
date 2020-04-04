@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from './Nav';
+import renderHTML from 'react-render-html';
 
 const SinglePost = props => {
 
@@ -10,19 +11,29 @@ const SinglePost = props => {
         axios
             .get(`${process.env.REACT_APP_API}/post/${props.match.params.slug}`)
             .then(response => setPost(response.data))
-            .catch(err => console.error(err));
+            .catch(err => alert(err));
     }, []);
+
+    const showSinglePost = () => (
+        <div className='row'>
+            <div className='col-md-8 offset-md-2 pt-3 pb-2'>
+                <h1>{post.title}</h1>
+                <div className='lead pt-3'>
+                    { renderHTML(post.content) }
+                </div>
+                <p>
+                    Author <span className='badge'>{post.user}</span> Published on{' '}
+                    <span className='badge'>{new Date(post.createdAt).toLocaleString()}</span>
+                </p>
+            </div>
+        </div>
+    )
 
     return (
         <div>
             <Nav />
             <div className='container p-5'>
-                <h1>{post.title}</h1>
-                <p className='lead'>{post.content}</p>
-                <p>
-                Author <span className='badge'>{post.user}</span> Published on{' '}
-                <span className='badge'>{new Date(post.createdAt).toLocaleString()}</span>
-                </p>
+                { post && showSinglePost() }
             </div>
         </div>
     )
