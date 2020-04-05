@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Nav from './Nav';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
-import {getUser} from './helpers';
+import { getUser, getToken } from './helpers';
 import 'react-quill/dist/quill.snow.css';
 
 const Create = () => {
@@ -34,7 +34,11 @@ const Create = () => {
         event.preventDefault();
 
         axios
-            .post(`${process.env.REACT_APP_API}/post`, { title, content, user })
+            .post(`${process.env.REACT_APP_API}/post`, { title, content, user }, {
+                headers: {
+                    authorization: `Bearer ${ getToken() }`
+                }
+            })
             .then(response => {
                 console.log(response);
 
@@ -47,7 +51,8 @@ const Create = () => {
             })
             .catch(error => {
                 console.error(error.response);
-                console.error(error.response.data.error)
+                console.error(error.response.data.error);
+                alert(error);
             });
     }
 
